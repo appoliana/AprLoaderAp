@@ -1,0 +1,533 @@
+﻿<UserControl x:Class="AprLoader.Views.MainWindow.DetectorTablesTab"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:AprLoaderNew.ViewModel"
+             xmlns:i1="http://schemas.microsoft.com/xaml/behaviors">
+    <UserControl.DataContext>
+        <local:DetectorViewModel/>
+    </UserControl.DataContext>
+
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <GridSplitter Grid.Row="1" ShowsPreview="False" Height="1"
+        VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+
+        <GridSplitter Grid.Row="3" ShowsPreview="False" Height="1"
+        VerticalAlignment="Center" HorizontalAlignment="Stretch"/>
+
+        <Grid Grid.Row="0" VerticalAlignment="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="1" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+            <GroupBox Header="Таблица типов детекторов (dbo.DetectorType)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Grid.Column="0">
+                <Grid Margin="0 10 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="1 0">
+                            <TextBlock Text="Id" FontWeight="Bold"/>
+                            <TextBox x:Name="DetectorTypeId" Text="{Binding DetectorTypeIdText}" HorizontalAlignment="Left" Height="23"  VerticalAlignment="Top" Width="30"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="1 0">
+                            <TextBlock Text="Наименование" FontWeight="Bold"/>
+                            <TextBox x:Name="DetectorTypeName" Text="{Binding DetectorTypeIdName}" HorizontalAlignment="Left" Height="23"  VerticalAlignment="Top" Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Margin="1 0">
+                            <TextBlock Text="Номер типа" FontWeight="Bold"/>
+                            <TextBox x:Name="DetectorTypeNum" Text="{Binding DetectorTypeIdNum}" HorizontalAlignment="Left" Height="23"  VerticalAlignment="Top" Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="3 0">
+                            <Button Content="Добавить" Command="{Binding AddDetectorType}" Width="70" Height="23" VerticalAlignment="Top" />
+                            <Button Content="Изменить" Command="{Binding UpdateDetectorType}"  Width="70" Height="23" VerticalAlignment="Top" />
+                            <Button Content="Удалить" Command="{Binding RemoveDetectorType}" Width="70" Height="23" VerticalAlignment="Top" />
+                        </StackPanel>
+                    </Grid>
+
+                    <ListView x:Name="DetectorTypesListView" ItemsSource="{Binding DetectorTypesListViewItemSource}" SelectedItem="{Binding DetectorTypesListViewSelectedItem}" Margin="0,0,0,0" Grid.Row="2">
+                        <i1:Interaction.Triggers>
+                            <i1:EventTrigger EventName="SelectionChanged">
+                                <i1:CallMethodAction
+                                    MethodName="DetectorTypesListViewSelectionChanged"
+                                    TargetObject="{Binding}"/>
+                            </i1:EventTrigger>
+                        </i1:Interaction.Triggers>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Id" Width="40" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="Наименование" Width="190" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Номер типа" Width="80" DisplayMemberBinding="{Binding Type}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Таблица детектора оборудования (dbo.HardwareDetector)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Grid.Column="2">
+                <Grid Margin="0 10 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="1 0">
+                            <TextBlock Text="Id" FontWeight="Bold"/>
+                            <TextBox x:Name="HardwareDetectorId" Text="{Binding HardwareDetectorIdText}" HorizontalAlignment="Left" Height="23"  VerticalAlignment="Bottom" Width="30"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="1 0">
+                            <TextBlock Text="Наименование" FontWeight="Bold"/>
+                            <TextBox x:Name="HardwareDetectorName" Text="{Binding HardwareDetectorNameText}" Height="23" Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Margin="1 0">
+                            <TextBlock Text="Путь к TLS" FontWeight="Bold" />
+                            <TextBox x:Name="HardwareDetectorTlsFilePath" Text="{Binding HardwareDetectorTlsFilePathText}" Height="23" Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="3" Margin="1 0">
+                            <TextBlock Text="PreProc. TLS Key" FontWeight="Bold"/>
+                            <TextBox x:Name="HardwareDetectorPreProcessingTlsKey" Text="{Binding HardwareDetectorPreProcessingTlsKeyText}" Height="23" Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="4" Margin="1 0">
+                            <TextBlock HorizontalAlignment="Center" Text="Используется" FontWeight="Bold"/>
+                            <CheckBox x:Name="HardwareDetectorIsUse" IsChecked="{Binding HardwareDetectorIsUseText}" HorizontalAlignment="Center" Height="23"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="5" Margin="1 0">
+                            <TextBlock Text="Тип детектора" FontWeight="Bold"/>
+                            <TextBox x:Name="HardwareDetectorDetectorType" Text="{Binding HardwareDetectorDetectorTypeText}" Height="23" Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="6" Margin="1 0">
+                            <TextBlock Text="Уникальное имя" FontWeight="Bold"/>
+                            <TextBox x:Name="HardwareDetectorUniqueName" Text="{Binding HardwareDetectorUniqueNameText}" Height="23" Width="100"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="7" Margin="1 0">
+                            <TextBlock Text="Pixel Spacing" FontWeight="Bold"/>
+                            <TextBox x:Name="HardwareDetectorImagePixelSpacing" Text="{Binding HardwareDetectorImagePixelSpacingText}" Height="23" Width="100"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="8" Margin="1 0">
+                            <TextBlock Text="Calib. Image Size" FontWeight="Bold"/>
+                            <TextBox x:Name="HardwareDetectorCalibratedImageSize" Text="{Binding HardwareDetectorCalibratedImageSizeText}" Height="23" Width="100"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="9" Margin="1 0">
+                            <TextBlock Text="Версия APR" FontWeight="Bold"/>
+                            <TextBox x:Name="HardwareDetectorAprVersion" Text="{Binding HardwareDetectorAprVersion}" Height="23" Width="100"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Grid.Column="10" Margin="3 0" VerticalAlignment="Bottom">
+                            <Button Content="Добавить" Command="{Binding AddHardwareDetector}" Width="70" Height="23"/>
+                            <Button Content="Изменить" Command="{Binding UpdateHardwareDetector}" Width="70" Height="23"/>
+                            <Button Content="Удалить" Command="{Binding RemoveHardwareDetector}" Width="70" Height="23"/>
+                        </StackPanel>
+                    </Grid>
+                    <ListView x:Name="HardwareDetectorListView" ItemsSource="{Binding HardwareDetectorListViewItemSource}" SelectedItem="{Binding HardwareDetectorListViewSelectedItem}" Margin="0,0,0,0" Grid.Row="2">
+                        <i1:Interaction.Triggers>
+                            <i1:EventTrigger EventName="SelectionChanged">
+                                <i1:CallMethodAction
+                                    MethodName="HardwareDetectorListViewSelectionChanged"
+                                    TargetObject="{Binding}"/>
+                            </i1:EventTrigger>
+                        </i1:Interaction.Triggers>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID"  Width="40" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="Название"  Width="100" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Путь к TLS" Width="120" DisplayMemberBinding="{Binding TlsFilePath}"/>
+                                <GridViewColumn Header="PreProc. TLS Key" Width="120" DisplayMemberBinding="{Binding PreProcessingTlsKey}"/>
+                                <GridViewColumn Header="Используется" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding IsUse}" IsHitTestVisible="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Тип детектора" Width="90" DisplayMemberBinding="{Binding DetectorType}"/>
+                                <GridViewColumn Header="Уникальное имя" Width="120" DisplayMemberBinding="{Binding UniqueName}"/>
+                                <GridViewColumn Header="Pixel Spacing" Width="120" DisplayMemberBinding="{Binding ImagePixelSpacing}"/>
+                                <GridViewColumn Header="Calib. Image Size" Width="120" DisplayMemberBinding="{Binding CalibratedImageSize}"/>
+                                <GridViewColumn Header="Версия APR" Width="80" DisplayMemberBinding="{Binding AprVersion}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <GridSplitter Grid.Column="1" ShowsPreview="False" Width="1" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+            <GroupBox Header="Рабочие станции детектора (dbo.DetectorWorkstation)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Grid.Column="0">
+                <Grid Margin="0 10 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="1 0">
+                            <TextBlock Text="Id" FontWeight="Bold"/>
+                            <TextBox x:Name="DetectorWorkstationId" Text="{Binding DetectorWorkstationIdText}" Height="23" Width="30" IsEnabled="False"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="1 0">
+                            <TextBlock Text="Logical Workst. Id" FontWeight="Bold"/>
+                            <TextBox x:Name="DetectorWorkstationLogicalWorkstationId" Text="{Binding DetectorWorkstationLogicalWorkstationIdText}" Height="23" Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Margin="1 0">
+                            <TextBlock Text="ID детектора" FontWeight="Bold"/>
+                            <TextBox x:Name="DetectorWorkstationDetectorId" Text="{Binding DetectorWorkstationDetectorIdText}" Height="23" Width="100"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Column="3" VerticalAlignment="Bottom" Margin="3 0">
+                            <Button Content="Добавить" Command="{Binding AddDetectorWorkstation}" Width="70" Height="23"/>
+                            <Button Content="Изменить" Command="{Binding UpdateDetectorWorkstation}" Width="70" Height="23"/>
+                            <Button Content="Удалить" Command="{Binding RemoveDetectorWorkstation}" Width="70" Height="23"/>
+                        </StackPanel>
+                    </Grid>
+                    <ListView x:Name="DetectorWorkstationsListView" SelectedItem="{Binding DetectorWorkstationsListViewSelectedItem}" ItemsSource="{Binding DetectorWorkstationsListViewItemSource}" Margin="0,0,0,0" Grid.Row="2">
+                        <i1:Interaction.Triggers>
+                            <i1:EventTrigger EventName="SelectionChanged">
+                                <i1:CallMethodAction
+                                    MethodName="DetectorWorkstationsListViewSelectionChanged"
+                                    TargetObject="{Binding}"/>
+                            </i1:EventTrigger>
+                        </i1:Interaction.Triggers>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID"  Width="40" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="Logical Workst. Id"  Width="190" DisplayMemberBinding="{Binding LogicalWorkstationId}"/>
+                                <GridViewColumn Header="ID детектора" Width="80" DisplayMemberBinding="{Binding DetectorId}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Таблица логических рабочих станций (dbo.LogicalWorkstation)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10" Grid.Column="2">
+                <Grid Margin="0 10 0 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="0" Margin="1 0">
+                            <TextBlock Text="Id" FontWeight="Bold"/>
+                            <TextBox x:Name="LogicalWorkstationId" Text="{Binding LogicalWorkstationIdText}" Height="23" Width="30"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" Margin="1 0">
+                            <TextBlock Text="ID рабочей ст." FontWeight="Bold"/>
+                            <TextBox x:Name="LogicalWorkstationWorkstationId" Text="{Binding LogicalWorkstationWorkstationIdText}" Height="23" Width="40"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="2" Margin="1 0">
+                            <TextBlock HorizontalAlignment="center" Text="Томография" FontWeight="Bold"/>
+                            <CheckBox x:Name="LogicalWorkstationIsTomo" IsChecked="{Binding LogicalWorkstationIsTomo}" HorizontalAlignment="center" Height="23"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="3" Margin="1 0">
+                            <TextBlock HorizontalAlignment="center" Text="Скопия" FontWeight="Bold"/>
+                            <CheckBox x:Name="LogicalWorkstationIsScopy" IsChecked="{Binding LogicalWorkstationIsScopy}" HorizontalAlignment="center" Height="23"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="4" Margin="1 0">
+                            <TextBlock HorizontalAlignment="center" Text="Сер. графия" FontWeight="Bold"/>
+                            <CheckBox x:Name="LogicalWorkstationIsSerialGraphy" IsChecked="{Binding LogicalWorkstationIsSerialGraphy}" HorizontalAlignment="center" Height="23"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="5" Margin="1 0">
+                            <TextBlock HorizontalAlignment="center" Text="Фильм" FontWeight="Bold"/>
+                            <CheckBox x:Name="LogicalWorkstationIsFilm" IsChecked="{Binding LogicalWorkstationIsFilm}" HorizontalAlignment="center" Height="23"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="6" Margin="1 0">
+                            <TextBlock HorizontalAlignment="center" Text="Aec включен" FontWeight="Bold"/>
+                            <CheckBox x:Name="LogicalWorkstationIsAecEnabled" IsChecked="{Binding LogicalWorkstationIsAecEnabled}" HorizontalAlignment="center" Height="23"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="7">
+                            <TextBlock Text="Уник. назв." FontWeight="Bold"/>
+                            <TextBox x:Name="LogicalWorkstationUniqueName" Text="{Binding LogicalWorkstationUniqueNameText}" Height="23" Width="70"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="8" Margin="1 0">
+                            <TextBlock Text="Подсказка" FontWeight="Bold"/>
+                            <TextBox x:Name="LogicalWorkstationToolTip" Text="{Binding LogicalWorkstationToolTipText}" Height="23" Width="70"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="9" Margin="1 0">
+                            <TextBlock HorizontalAlignment="center" Text="Видим" FontWeight="Bold"/>
+                            <CheckBox x:Name="LogicalWorkstationIsVisible" IsChecked="{Binding LogicalWorkstationIsVisible}" HorizontalAlignment="center" Height="23" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="10" Margin="1 0">
+                            <TextBlock Text="Уник. Id" FontWeight="Bold"/>
+                            <TextBox x:Name="LogicalWorkstationUniqueId" Text="{Binding LogicalWorkstationUniqueIdText}" Height="23" Width="70"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="11" Margin="1 0">
+                            <TextBlock HorizontalAlignment="center" Text="Растр" FontWeight="Bold"/>
+                            <CheckBox x:Name="LogicalWorkstationIsRaster" IsChecked="{Binding LogicalWorkstationIsRaster}" HorizontalAlignment="center" Height="23"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Vertical" Grid.Column="12" Margin="1 0">
+                            <TextBlock Text="Id дозиметра" FontWeight="Bold"/>
+                            <TextBox x:Name="LogicalWorkstationDosimeterId" Text="{Binding LogicalWorkstationDosimeterIdText}" Height="23" Width="70"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" Grid.Column="13" Margin="3 0">
+                            <Button Content="Добавить" Command="{Binding AddLogicalWorkstation}" Width="70" Height="23"/>
+                            <Button Content="Изменить" Command="{Binding UpdateLogicalWorkstation}" Width="70" Height="23"/>
+                            <Button Content="Удалить" Command="{Binding RemoveLogicalWorkstation}" Width="70" Height="23"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <ListView x:Name="LogicalWorkstationsListView" ItemsSource="{Binding LogicalWorkstationsListViewItemSource}" SelectedItem="{Binding LogicalWorkstationsListViewSelectedItem}" Margin="0,0,0,0" Grid.Row="2">
+                        <i1:Interaction.Triggers>
+                            <i1:EventTrigger EventName="SelectionChanged">
+                                <i1:CallMethodAction
+                                    MethodName="LogicalWorkstationsListViewSelectionChanged"
+                                    TargetObject="{Binding}"/>
+                            </i1:EventTrigger>
+                        </i1:Interaction.Triggers>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ID"  Width="40" DisplayMemberBinding="{Binding Id}"/>
+                                <GridViewColumn Header="ID рабочей станции"  Width="120" DisplayMemberBinding="{Binding WorkstationId}"/>
+
+                                <GridViewColumn Header="Томография" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding IsTomo}" IsHitTestVisible="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Скопия" Width="60">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding IsScopy}" IsHitTestVisible="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Серийная скопия" Width="110">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding IsSerialGraphy}" IsHitTestVisible="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Фильм" Width="50">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding IsFilm}" IsHitTestVisible="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="AEC включен" Width="90">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding IsAecEnabled}" IsHitTestVisible="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Уникальное название" Width="120" DisplayMemberBinding="{Binding UniqueName}"/>
+                                <GridViewColumn Header="Подсказка" Width="120" DisplayMemberBinding="{Binding ToolTip}"/>
+
+                                <GridViewColumn Header="Видим" Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding IsVisible}" IsHitTestVisible="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="Уникальный ID" Width="120" DisplayMemberBinding="{Binding UniqueId}"/>
+
+                                <GridViewColumn Header="Растр" Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox Margin="5, 0" IsChecked="{Binding IsRaster}" IsHitTestVisible="False"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="ID дозиметра" Width="120" DisplayMemberBinding="{Binding DosimeterId}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <Grid Grid.Row="4" VerticalAlignment="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <GroupBox Grid.Column="0" Header="Рабочие станции генератора (dbo.GeneratorWorkStation)" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,10">
+                    <Grid Margin="0 10 0 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
+                            <RowDefinition Height="auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Orientation="Vertical" Grid.Column="0" Margin="1 0">
+                                <TextBlock Text="Id" FontWeight="Bold"/>
+                                <TextBox x:Name="GeneratorWorkstationId" Text="{Binding GeneratorWorkstationIdText}" Height="23" Width="30"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="1" Margin="1 0">
+                                <TextBlock Text="Название" FontWeight="Bold"/>
+                                <TextBox x:Name="GeneratorWorkstationName" Text="{Binding GeneratorWorkstationNameText}" Height="23" Width="60"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="2" Margin="1 0">
+                                <TextBlock Text="Gen.Par.Val." FontWeight="Bold"/>
+                                <TextBox x:Name="GeneratorWorkstationGenParVal" Text="{Binding GeneratorWorkstationGenParValText}" Height="23" Width="60"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="3" Margin="1 0">
+                                <TextBlock HorizontalAlignment="center" Text="Активен" FontWeight="Bold"/>
+                                <CheckBox x:Name="GeneratorWorkstationIsActive" IsChecked="{Binding GeneratorWorkstationIsActive}" HorizontalAlignment="center" Height="23"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" Grid.Column="4" Margin="1 0">
+                                <TextBlock HorizontalAlignment="center" Text="Aec активен" FontWeight="Bold"/>
+                                <CheckBox x:Name="GeneratorWorkstationIsAecEnabled" IsChecked="{Binding GeneratorWorkstationIsAecEnabled}" HorizontalAlignment="center" Height="23"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Column="5" VerticalAlignment="Bottom" Margin="3 0">
+                                <Button Content="Добавить" Command="{Binding AddGeneratorWorkstation}" Width="70" Height="23"/>
+                                <Button Content="Изменить" Command="{Binding UpdateGeneratorWorkstation}" Width="70" Height="23"/>
+                                <Button Content="Удалить" Command="{Binding RemoveGeneratorWorkstation}" Width="70" Height="23"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <ListView x:Name="GeneratorWorkStationsListView" ItemsSource="{Binding GeneratorWorkStationsListViewItemSource}" SelectedItem="{Binding GeneratorWorkStationsListViewSelectedItem}" Margin="0,0,0,0" Grid.Row="2">
+                            <i1:Interaction.Triggers>
+                                <i1:EventTrigger EventName="SelectionChanged">
+                                    <i1:CallMethodAction
+                                    MethodName="GeneratorWorkStationsListViewSelectionChanged"
+                                    TargetObject="{Binding}"/>
+                                </i1:EventTrigger>
+                            </i1:Interaction.Triggers>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="ID"  Width="40" DisplayMemberBinding="{Binding Id}"/>
+                                    <GridViewColumn Header="Название"  Width="60" DisplayMemberBinding="{Binding Name}"/>
+                                    <GridViewColumn Header="GeneratorParameterValue" Width="160" DisplayMemberBinding="{Binding GeneratorParameterValue}"/>
+
+                                    <GridViewColumn Header="Активен" Width="70">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Margin="5, 0" IsChecked="{Binding IsActive}" IsHitTestVisible="False"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+
+                                    <GridViewColumn Header="AEC активен" Width="90">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox Margin="5, 0" IsChecked="{Binding IsAecEnabled}" IsHitTestVisible="False"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </Grid>
+                </GroupBox>
+
+                <GridSplitter Grid.Column="1" ShowsPreview="False" Width="1" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+
+                <Grid Margin="3,10,10,0" Background="LightGray" Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <StackPanel Grid.Row="0" Margin="10 10 0 0 ">
+                        <TextBlock FontSize="16">Ошибки операций над БД</TextBlock>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="10,4,1,4">
+                        <TextBlock>Последний результат:</TextBlock>
+                        <TextBlock x:Name="ResultTextBlock" Text="{Binding ResultTextBlockText}" Foreground="{Binding ResultTextBlockColor}" Margin="6 0 0 0">ожидание</TextBlock>
+                    </StackPanel>
+
+                    <ScrollViewer Grid.Row="1" Background="White" Grid.ColumnSpan="2" Margin="10,24,10,0">
+                        <TextBlock x:Name="TableUpdateLog" Text="{Binding TableUpdateLogText}" Height="120" TextWrapping="Wrap" ScrollViewer.CanContentScroll="True"/>
+                    </ScrollViewer>
+
+                    <StackPanel Orientation="Horizontal" Grid.Row="3" HorizontalAlignment="Center" Margin="10,4,0,4">
+                        <Button Content="Очистить лог" Command="{Binding ClearLog}" Margin="4 4"/>
+                        <Button Content="Обновить таблицы" Command="{Binding InitializeCollections}" Margin="4 4"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

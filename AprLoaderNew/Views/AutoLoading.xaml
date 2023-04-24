@@ -1,0 +1,120 @@
+﻿<UserControl x:Class="AprLoaderNew.Views.AutoLoading"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AprLoaderNew.Views" 
+             xmlns:viewmodel="clr-namespace:AprLoaderNew.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="480" d:DesignWidth="800" d:Background="White" MinHeight="480">
+
+    <UserControl.DataContext>
+        <viewmodel:AutoLoadingViewModel/>
+    </UserControl.DataContext>
+
+    <Grid Margin="5,2,2,0">
+        <Grid.Resources>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="FontSize" Value="13"/>
+            </Style>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="BorderBrush" Value="#FFA5B4C7"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            <Style x:Key="ButtonStyle1" TargetType="Button">
+                <Setter Property="Background" Value="{x:Null}"/>
+                <Setter Property="BorderBrush" Value="#FFA5B4C7"/>
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+            </Style>
+            <Style x:Key="TextBox" TargetType="TextBox">
+                <Setter Property="VerticalAlignment" Value="Bottom"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Width" Value="200"/>
+            </Style>
+        </Grid.Resources>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Style="{StaticResource LabelStyle}" Content="Путь к xlsx с АПР" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Margin="0,0,0,26" Height="27"/>
+        <TextBox x:Name="APRPathTextBox" Text="{Binding AprTextUpdate}" BorderBrush="Gray" Grid.Column="0" TextWrapping="Wrap" Grid.ColumnSpan="2" Height="21" VerticalAlignment="Bottom"/>
+        <Button Style="{StaticResource ButtonStyle}" x:Name="ExploreAPRFile" Content="Обзор" Command="{Binding FindFileEx}" CommandParameter="file" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Stretch" Margin="10,0,10,0" Height="21"/>
+        <Button  Style="{StaticResource ButtonStyle}" x:Name="LoadApr" Content="Загрузить" Command="{Binding LoadApr}" IsEnabled="{Binding IsLoadEnabled}" Grid.Column="3" HorizontalAlignment="Stretch" Margin="1,0,19,0" Height="21">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFE0FF5E"/>
+                    <GradientStop Color="#FFB6BF16" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Label Style="{StaticResource LabelStyle}" Content="{Binding MessageAfterLoading}" Grid.Row="1" Grid.ColumnSpan="3"/>
+        <ListBox Grid.Row="2" ItemsSource="{Binding SupplyOptionItemSource}" SelectedItem="{Binding SupplyOptionSelectedItem}" Grid.ColumnSpan="4" Grid.RowSpan="2"/>
+        <Button Style="{StaticResource ButtonStyle1}" Command="{Binding CreateNewConfiguration}" IsEnabled="{Binding IsCreateNewEnabled}" Content="Создать новую конф" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2" VerticalAlignment="Top" Height="20" Margin="24,17,23,0" HorizontalAlignment="Stretch"/>
+        <Button Style="{StaticResource ButtonStyle1}" Command="{Binding EditWorkSpace}" IsEnabled="{Binding IsEditEnabled}" Content="Редактировать" Grid.Row="4" VerticalAlignment="Top" Height="20" HorizontalAlignment="Stretch" Margin="0,17,0,0"/>
+        <Button Style="{StaticResource ButtonStyle1}" Command="{Binding DeleteConfiguration}" IsEnabled="{Binding IsDeleteEnabled}" Content="Удалить" Grid.Column="3" Grid.Row="4" Margin="1,17,21,0" VerticalAlignment="Top" Height="20" HorizontalAlignment="Stretch"/>
+        <Button Style="{StaticResource ButtonStyle}" x:Name="SaveButton" Command="{Binding SaveConfiguration}" IsEnabled="{Binding IsSaveEnabled}" Background="{Binding SaveBackground}" Content="Сохранить сопоставление" Grid.Row="7" Grid.Column="5" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="10,11,10,0" HorizontalAlignment="Stretch" Height="20"/>
+
+        <GroupBox Header="Сопоставления" IsEnabled="{Binding WorkSpaceEnabled}" BorderBrush="{Binding WorkSpaceBorderBrush}" Grid.Column="5" Grid.Row="2" Grid.ColumnSpan="4" Grid.RowSpan="5">
+            <ScrollViewer >
+                <StackPanel x:Name="StackPanel">
+                    <ItemsControl ItemsSource="{Binding WorkStationsVM}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:WorkStations/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Content="➕" Command="{Binding AddNewWorkStation}" HorizontalAlignment="Right" FontSize="18" Height="25" Width="28" FontWeight="Bold" FontFamily="Bernard MT Condensed" BorderBrush="White" Background="White">
+                        <Button.Foreground>
+                            <ImageBrush ImageSource="/Views/plus.png"/>
+                        </Button.Foreground>
+                    </Button>
+                </StackPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+        <TextBox Style="{StaticResource TextBox}" x:Name="ConfigName" Text="{Binding ConfigurationName}" IsEnabled="{Binding ConfigurationNameIsEnabled}" Grid.Column="5" Grid.ColumnSpan="3" Grid.Row="0" Margin="0,0,0,0" Grid.RowSpan="1" Width="240"/>
+        <ComboBox ItemsSource="{Binding WorkSpaceItemSource}" IsEnabled="{Binding IsWorkSpaceItemsEnabled}" SelectedItem="{Binding WorkSpaceSelectedItem}" SelectedIndex="{Binding WorkSpaceSelectedIndex}" Grid.Column="5" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,0,21,15" Height="22" VerticalAlignment="Bottom"/>
+        <ComboBox ItemsSource="{Binding DetectorItemSource}" IsEnabled="{Binding IsDetectorItemsEnabled}" SelectedItem="{Binding DetectorSelectedItem}" SelectedIndex="{Binding DetectorSelectedIndex}" Grid.Column="7" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,0,44,15" Height="22" VerticalAlignment="Bottom"/>
+        <Button Style="{StaticResource ButtonStyle}" Command="{Binding SaveAllConfiguration}" IsEnabled="{Binding IsSaveAllEnabled}" Content="Сохранить конфигурацию" Grid.Row="7" Grid.Column="7" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="10,11,10,0" Height="20"/>
+        <ComboBox ItemsSource="{Binding SoftwareItemSource}" IsEnabled="{Binding IsSoftwareVisible}" SelectedItem="{Binding SoftwareSelectedItem}" SelectedIndex="{Binding SoftwareSelectedIndex}" Grid.Column="5" Grid.ColumnSpan="2" HorizontalAlignment="Left" Width="120" Margin="0,0,0,31" Height="22" VerticalAlignment="Bottom"/>
+        <ProgressBar Value="{Binding CurrentProgress, Mode=OneWay}" Visibility="{Binding ProgressVisibility}" Grid.ColumnSpan="4" Grid.Row="5" Grid.Column="0" VerticalAlignment="Top" Height="20" Margin="0,16,0,0">
+            <ProgressBar.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFF12CA"/>
+                    <GradientStop Color="White"/>
+                    <GradientStop Color="#FF7F6DFF" Offset="0.997"/>
+                    <GradientStop Color="#FF9E16E0"/>
+                    <GradientStop Color="#FF4930FF" Offset="0.533"/>
+                </LinearGradientBrush>
+            </ProgressBar.Foreground>
+        </ProgressBar>
+
+    </Grid>
+</UserControl>
