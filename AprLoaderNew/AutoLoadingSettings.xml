@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AprLoaderSettings>
+  <AprSettings name="NIK4343C">
+    <SupplyOption name="KZHC_64: Epo-Rd KZHC_64">
+      <WorkSpace name="Рентгеноскопия и рентгенография на динамический детектор" detector="NIK4343">
+        <List name="Графия (внешний эксп)" technique="Графия" />
+        <List name="Серийная графия" technique="СерийнаяГрафия" />
+        <List name="Скопия" technique="Скопия" />
+        <List name="Скопия HD" technique="СкопияHD" />
+        <List name="Дуальная энергия (всроен. эксп)" technique="СерийнаяГрафия" />
+        <List name="Дуальная энергия (всроен. эксп)" technique="Графия" />
+      </WorkSpace>
+      <WorkSpace name="Рентгенография на панели" detector="NIK4343">
+        <List name="Графия (внешний эксп)" technique="Графия" />
+        <List name="Серийная графия" technique="СерийнаяГрафия" />
+        <List name="Скопия" technique="Скопия" />
+        <List name="Дуальная энергия (всроен. эксп)" technique="СерийнаяГрафия" />
+        <List name="Дуальная энергия (всроен. эксп)" technique="Графия" />
+      </WorkSpace>
+      <WorkSpace name="Линейная томография" detector="NIK4343">
+        <List name="Томография" technique="Томография" />
+      </WorkSpace>
+      <WorkSpace name="Томосинтез" detector="NIK4343">
+        <List name="Томосинтез" technique="Томосинтез" />
+        <List name="Томосинтез" technique="Томография" />
+      </WorkSpace>
+      <WorkSpace name="Панорамные снимки (Сшивка на столе)" detector="NIK4343">
+        <List name="Сшивка панорамная (встроен.эксп" technique="Графия" />
+        <List name="Сшивка панорамная (встроен.эксп" technique="СерийнаяГрафия" />
+      </WorkSpace>
+    </SupplyOption>
+  </AprSettings>
+  <AprSettings name="FILM400">
+    <SupplyOption name="KZHC_64: Для свободной техники">
+      <WorkSpace name="Рентгенография на внешний приемник" detector="Film">
+        <List name="Графия" technique="Графия" />
+      </WorkSpace>
+    </SupplyOption>
+  </AprSettings>
+</AprLoaderSettings>
